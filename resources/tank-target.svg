@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:cc="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:ns1="http://sozi.baierouge.fr"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    id="svg2374"
+    sodipodi:docname="crosshairs.svg"
+    viewBox="0 0 377.09 377.09"
+    sodipodi:version="0.32"
+    version="1.0"
+    inkscape:output_extension="org.inkscape.output.svg.inkscape"
+    inkscape:version="0.45.1"
+    sodipodi:docbase="/home/dm/WEBSITE/Gotcha/devel/src/images"
+  >
+  <sodipodi:namedview
+      id="base"
+      bordercolor="#666666"
+      inkscape:pageshadow="2"
+      inkscape:window-y="189"
+      pagecolor="#ffffff"
+      inkscape:window-height="603"
+      inkscape:zoom="0.35"
+      inkscape:window-x="172"
+      borderopacity="1.0"
+      inkscape:current-layer="layer1"
+      inkscape:cx="350"
+      inkscape:cy="520"
+      inkscape:window-width="948"
+      inkscape:pageopacity="0.0"
+      inkscape:document-units="px"
+  />
+  <g
+      id="layer1"
+      inkscape:label="Ebene 1"
+      inkscape:groupmode="layer"
+      transform="translate(-85.743 -163.82)"
+    >
+    <g
+        id="g2404"
+      >
+      <path
+          id="path2160"
+          sodipodi:rx="250"
+          sodipodi:ry="250"
+          style="stroke-linejoin:round;stroke:#000000;stroke-linecap:square;stroke-width:22;fill:none"
+          sodipodi:type="arc"
+          d="m250 0a250 250 0 1 1 -500 3.0615e-14 250 250 0 1 1 500 -9.1845e-14z"
+          transform="matrix(.72239 0 0 .72239 274.29 352.36)"
+          sodipodi:cy="0"
+          sodipodi:cx="0"
+      />
+      <path
+          id="path3134"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m93.689 352.36h361.19"
+      />
+      <path
+          id="path5074"
+          style="stroke:#000000;stroke-width:21.672;fill:none"
+          d="m96.578 352.36h32.282"
+      />
+      <path
+          id="path6045"
+          style="stroke:#000000;stroke-width:21.672;fill:none"
+          d="m419.71 352.36h32.28"
+      />
+      <path
+          id="path6099"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m151.34 363.2v-21.67"
+      />
+      <path
+          id="path6101"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m192.32 363.2v-21.67"
+      />
+      <path
+          id="path6103"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m233.3 363.2v-21.67"
+      />
+      <path
+          id="path6105"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m315.27 363.2v-21.67"
+      />
+      <path
+          id="path6107"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m356.25 363.2v-21.67"
+      />
+      <path
+          id="path6109"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m397.23 363.2v-21.67"
+      />
+      <path
+          id="path6116"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m274.29 363.2v-21.67"
+      />
+      <path
+          id="path6292"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m274.29 171.77v361.19"
+      />
+      <path
+          id="path6294"
+          style="stroke:#000000;stroke-width:21.672;fill:none"
+          d="m274.29 174.65v32.29"
+      />
+      <path
+          id="path6296"
+          style="stroke:#000000;stroke-width:21.672;fill:none"
+          d="m274.29 497.79v32.28"
+      />
+      <path
+          id="path6300"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m263.45 229.41h21.67"
+      />
+      <path
+          id="path6302"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m263.45 270.4h21.67"
+      />
+      <path
+          id="path6304"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m263.45 311.38h21.67"
+      />
+      <path
+          id="path6306"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m263.45 393.35h21.67"
+      />
+      <path
+          id="path6308"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m263.45 434.33h21.67"
+      />
+      <path
+          id="path6310"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m263.45 475.31h21.67"
+      />
+      <path
+          id="path6312"
+          style="stroke:#000000;stroke-width:9.391;fill:none"
+          d="m263.45 352.36h21.67"
+      />
+    </g
+    >
+  </g
+  >
+  <metadata
+    >
+    <rdf:RDF
+      >
+      <cc:Work
+        >
+        <dc:format
+          >image/svg+xml</dc:format
+        >
+        <dc:type
+            rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+        />
+        <cc:license
+            rdf:resource="http://creativecommons.org/licenses/publicdomain/"
+        />
+        <dc:publisher
+          >
+          <cc:Agent
+              rdf:about="http://openclipart.org/"
+            >
+            <dc:title
+              >Openclipart</dc:title
+            >
+          </cc:Agent
+          >
+        </dc:publisher
+        >
+        <dc:title
+          >crosshairs</dc:title
+        >
+        <dc:date
+          >2008-03-31T23:12:00</dc:date
+        >
+        <dc:description
+          >cross hairs</dc:description
+        >
+        <dc:source
+          >https://openclipart.org/detail/16078/crosshairs-by-noxin</dc:source
+        >
+        <dc:creator
+          >
+          <cc:Agent
+            >
+            <dc:title
+              >noxin</dc:title
+            >
+          </cc:Agent
+          >
+        </dc:creator
+        >
+        <dc:subject
+          >
+          <rdf:Bag
+            >
+            <rdf:li
+              >cross hairs</rdf:li
+            >
+            <rdf:li
+              >cross wires</rdf:li
+            >
+            <rdf:li
+              >crosshairs</rdf:li
+            >
+            <rdf:li
+              >crosslines</rdf:li
+            >
+            <rdf:li
+              >hair cross</rdf:li
+            >
+          </rdf:Bag
+          >
+        </dc:subject
+        >
+      </cc:Work
+      >
+      <cc:License
+          rdf:about="http://creativecommons.org/licenses/publicdomain/"
+        >
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#Reproduction"
+        />
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#Distribution"
+        />
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#DerivativeWorks"
+        />
+      </cc:License
+      >
+    </rdf:RDF
+    >
+  </metadata
+  >
+</svg
+>
