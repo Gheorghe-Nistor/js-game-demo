@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" id="svg9503" viewBox="65 31 90 177" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg version="1.1" id="svg9503" viewBox="13.577 47.383 178.284 91.901" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs id="defs9497">
     <filter id="filter74591" x="-0.10742471" width="1.2148494" y="-0.21833852" height="1.436677">
       <feGaussianBlur stdDeviation="31.277656" id="feGaussianBlur74593"/>
@@ -69,7 +69,7 @@
     <linearGradient id="linearGradient12107" gradientUnits="userSpaceOnUse" x1="91.723183" y1="929.67493" x2="91.723183" y2="921.02179" xlink:href="#linearGradient65020"/>
     <linearGradient id="linearGradient12109" gradientUnits="userSpaceOnUse" x1="81.005714" y1="935.07239" x2="81.005714" y2="916.77045" xlink:href="#linearGradient66967"/>
   </defs>
-  <g id="layer1" transform="matrix(-0.704818, -0.709389, 0.709389, -0.704818, 111.196831, 301.251099)">
+  <g id="layer1" transform="matrix(0.709389, -0.704818, 0.704818, 0.709389, -78.677902, 94.415451)">
     <g id="g11972" transform="matrix(0.00706066,0.00706066,-0.00706066,0.00706066,168.5488,171.46821)">
       <polygon style="opacity:0.71604937;fill:#ff0000;fill-opacity:1" id="polygon11974" points="0,1 0.5,1 0,0 " transform="matrix(-27.212723,-5.7456485,3.2524096,16.869104,-183.52562,2199.0162)"/>
       <polygon style="fill:#ff0000;fill-opacity:1" id="use11976" points="0,1 0.5,1 0,0 " transform="matrix(23.927227,14.563775,-13.364068,10.270133,-183.52562,2199.0162)"/>
