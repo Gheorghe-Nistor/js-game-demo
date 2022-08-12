@@ -26,6 +26,9 @@ class HTMLObject{
     
         this.props().style.transform = `rotate(${degree}deg)`;
     }
+    distance(obj){
+        return Math.sqrt((this.getLeft()-obj.getLeft())**2+(this.getTop()+obj.getTop())**2);
+    }
 }
 
 class TankTarget extends HTMLObject{
@@ -61,29 +64,33 @@ class Tank extends HTMLObject{
         const deltaY = Math.sin(angle) * speed;
 
         this.#tankView.setLeft(this.#tankView.getLeft()+deltaX);
-        this.#tankView.setTop(this.#tankView.getTop()+deltaY);  
+        this.#tankView.setTop(this.#tankView.getTop()+deltaY);        
     }
+    getTankView() {return this.#tankView;}
 }
 const tank = new Tank();
 
-const WINDOW = {
-    width: window.innerWidth,
-    height: window.innerHeight
-}
+let zombieIndex = 0;
 
 class Zombie extends HTMLObject{
-    #speed;
     #zombie;
-    #interval;
-    constructor(){
+    #health;
+    #healthBar;
+    #speed;
+    #moveInterval;
+    constructor(size = 80, health = 100, speed = 5){
         super('zombie-container');
         document.body.appendChild(this.props());
+        this.#healthBar = document.createElement('p');
+        this.props().appendChild(this.#healthBar);
+
         this.#zombie = document.createElement('img');
         this.props().className = 'zombie-container';
         this.props().appendChild(this.#zombie);
         this.#zombie.className = 'zombie';
+        this.#zombie.id = zombieIndex++;
 
-        this.setLeft(Math.random()*WINDOW.width);
+        this.setLeft(Math.random()*window.innerWidth);
         this.setTop(Math.random()*2);
 
         let spawn = Math.floor(Math.random()*4), spawnLeft, spawnTop;
@@ -91,28 +98,31 @@ class Zombie extends HTMLObject{
         switch(spawn){
             case 0:
                 spawnLeft = 0;
-                spawnTop  = Math.random()*WINDOW.height;
+                spawnTop  = Math.random()*window.innerHeight;
                 break;
             case 1:
-                spawnLeft = Math.random()*WINDOW.width;
+                spawnLeft = Math.random()*window.innerWidth;
                 spawnTop  = 0;
                 break;
             case 2:
-                spawnLeft = WINDOW.width;
-                spawnTop  = Math.random()*WINDOW.height
+                spawnLeft = window.innerWidth;
+                spawnTop  = Math.random()*window.innerHeight
                 break;
             case 3:
-                spawnLeft = Math.random()*WINDOW.width
-                spawnTop  = WINDOW.height;
+                spawnLeft = Math.random()*window.innerWidth
+                spawnTop  = window.innerHeight;
                 break;
         }
         
         this.setLeft(spawnLeft);
         this.setTop(spawnTop);
-        this.setSize(Math.random()*40+60);
-        this.#speed = 2;
+        this.setSize(size);
+        
+        this.#health = health;
+        this.setHealthBar();
+        this.#speed = speed;
 
-        this.#interval = setInterval(() => {
+        this.#moveInterval = setInterval(() => {
             const angle = (getCurrentRotation(this.props())-90) * Math.PI/180;
             
             const deltaX = Math.cos(angle) * this.#speed;
@@ -122,21 +132,37 @@ class Zombie extends HTMLObject{
             this.setTop (this.props().offsetTop + deltaY);
             
             this.rotate(tank)
+            
+            const centerX = this.getLeft() + this.getWidth()/2  - window.pageXOffset;
+            const centerY = this.getTop()  + this.getHeight()/2 - window.pageYOffset;
+
+            if(tank.props().isSameNode(document.elementFromPoint(centerX, centerY))){
+                for(let zombie of zombieArr)
+                    zombie.die();
+                clearInterval(spawnZombies);
+                alert('game over!');
+                location.reload();
+            }
         }, 200);
-
-        this.props().addEventListener("click", () => {
-            console.log('x');
-            this.props().remove();
-            this.getZombie().remove();
-            clearInterval(this.#interval);
-        });
-
     }
     getZombie(){return this.#zombie;}
-    setSize(size){this.#zombie.style.width = this.height + 'px';}
+    getHealth(){return this.#health;}
+    setSize(size){this.#zombie.style.height = size + 'px';}
+    setHealthBar(){this.#healthBar.textContent = this.#health;}
+    shot(damage) {
+        this.#health -= damage; 
+        if(this.#health <= 0)
+            this.die();
+        this.setHealthBar();
+    }
+    die() {
+        zombieArr[parseInt(this.props().id)] = null; 
+        this.props().remove();
+        this.getZombie().remove();
+        clearInterval(this.#moveInterval);
+        
+    }
 }
-const firstZombie = new Zombie(); 
-
 
 const getCurrentRotation = (element) => {
     const transform = getComputedStyle(element, null).getPropertyValue("transform");
@@ -146,12 +172,14 @@ const getCurrentRotation = (element) => {
     return Math.round(Math.atan2(values[1], values[0])*(180/Math.PI));
 }
 
-const init = () => {
-    //document.addEventListener('contextmenu', (e) => e.preventDefault());
-    /*setInterval(() => {
-        new Zombie();
-    }, 5000);*/
+const firstZombie = new Zombie();
+let zombieArr = [firstZombie], spawnZombies;
 
+const init = () => {
+    spawnZombies = setInterval(() => {
+        zombieArr.push(new Zombie());
+        zombieArr.push(new Zombie(50, 10, 15));
+    }, 20000)
     document.addEventListener("mouseenter", (e) => {
         tankTarget.props().style.display = 'block';
     });
@@ -162,15 +190,46 @@ const init = () => {
 
     document.addEventListener("mousemove", ({clientX, clientY} = e) => {
         tankTarget.setPos(clientX, clientY);
+        if(tank.props().isSameNode(document.elementsFromPoint(clientX, clientY)[1]))
+            return;
         tank.rotate(tankTarget);
+
+        const elements = document.elementsFromPoint(clientX, clientY);
+        if(elements[3] != undefined && elements[3].className == 'zombie-container')
+            tankTarget.props().className = 'tank-target-red';
+        else 
+            tankTarget.props().className = 'tank-target-green';
+        
+
     });
     
+    let SHOT = true;
     document.addEventListener("click", (e) => {
         e.preventDefault();
-        tankTarget.props().classList = "tank-target-red";
+
+        const elements = document.elementsFromPoint(e.clientX, e.clientY);
+        if(elements.length < 3)
+            return;
+        if(SHOT == false)
+            return;
+        SHOT = false;
         setTimeout(() => {
-            tankTarget.props().classList = "tank-target-green"; 
-        }, 250);
+            SHOT = true;
+        }, 1000);
+
+     
+        const explosion = new Audio('./resources/explosion.wav');
+        explosion.volume = 0.2;
+        explosion.play();
+
+        tankTarget.props().style.transform = 'scale(1.5)';
+        setTimeout(() => {
+            tankTarget.props().style.transform = 'scale(1)';
+        }, 300);
+
+        if(elements[3] != undefined && elements[3].className == 'zombie-container'){
+            zombieArr[parseInt(elements[3].children[1].id)].shot(Math.floor(Math.random()*5+10));
+        }
     });
 
     document.addEventListener("keydown", (e) => {
@@ -179,6 +238,7 @@ const init = () => {
         if(e.key == 's')
             tank.move('backward');
     });
+    tank.getTankView().props().className = 'game-over';
 }
 window.onload = init;
 

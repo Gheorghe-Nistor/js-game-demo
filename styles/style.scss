@@ -9,7 +9,9 @@ $view_dimensions:  500px;
 
 html{
     height: 100vh;
+    font-family: 'Crimson Text';
     cursor: none;
+
 
     position: fixed;
 
@@ -31,18 +33,21 @@ html{
     align-items: center;
     justify-content: center;
 
-    background: radial-gradient(circle, transparent 10%, rgba(0,0,0,0.90) 70%);
-    box-shadow: 0 0 0 300vh rgba(0,0,0,0.90);
+
+
+    background: radial-gradient(circle, transparent 10%, rgba(0,0,0,0.95) 70%);
+    box-shadow: 0 0 0 300vh rgba(0,0,0,0.95);
+
 
     #tank{
-        width: 70px;
+        width: 80px;
     }
 }
-
 #tank-target{
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     z-index: 1;
+    transition: transform .5s linear;
     display: none;
     position: absolute;
 }
@@ -56,9 +61,30 @@ html{
 .zombie-container{
     z-index: -1;
     position: absolute;
+    
+    transition: all 0.5s linear;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p{
+        text-align: center;
+        color: white;
+    }
 }
 
 .zombie{
-    height: 65px;
     content: url("../resources/zombie.gif");
+}
+
+.info{
+    width: 300px;
+    position: absolute;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 17px;
+    z-index: 1;
+    padding: 5px;
+    bottom: 0px;
+    left: 0px;
 }
