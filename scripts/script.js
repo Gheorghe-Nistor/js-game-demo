@@ -166,6 +166,10 @@ const firstZombie = new Zombie(); // <3
 let zombieArr = [firstZombie], spawnZombies;
 
 const init = () => {
+    if(window.innerWidth < 500){
+        alert('this game was designed for bigger screens');
+        location.reload();
+    }
     spawnZombies = setInterval(() => {
         zombieArr.push(new Zombie());
         zombieArr.push(new Zombie(50, 10, 15));
