@@ -1,3 +1,11 @@
+const getCurrentRotation = (element) => {
+    const transform = getComputedStyle(element, null).getPropertyValue("transform");
+    if(transform == "none")
+        return 0;
+    const values = transform.match(/-?\d\.[\d]+/g);
+    return Math.round(Math.atan2(values[1], values[0])*(180/Math.PI));
+}
+
 class HTMLObject{
     #props;
     #width;
@@ -17,18 +25,16 @@ class HTMLObject{
     getHeight() {return this.#height;}
     setLeft(pos) {this.#props.style.left = pos + 'px'}
     setTop(pos)  {this.#props.style.top  = pos + 'px'}
-    rotate(obj){
+    rotate(obj){ // math is fun :)
         const centerX = this.getLeft() + this.getWidth()/2  - window.pageXOffset;
         const centerY = this.getTop()  + this.getHeight()/2 - window.pageYOffset;
-    
         const radians = Math.atan2(obj.getLeft()-centerX, obj.getTop()-centerY);
         const degree  = (radians * (180 / Math.PI) * -1) + 180; 
-    
         this.props().style.transform = `rotate(${degree}deg)`;
     }
-    distance(obj){
-        return Math.sqrt((this.getLeft()-obj.getLeft())**2+(this.getTop()+obj.getTop())**2);
-    }
+    // distance(obj){
+    //     return Math.sqrt((this.getLeft()-obj.getLeft())**2+(this.getTop()+obj.getTop())**2);
+    // }
 }
 
 class TankTarget extends HTMLObject{
@@ -58,11 +64,9 @@ class Tank extends HTMLObject{
         let x;
         direction === 'forward' ? x = -90: x = 90;
         const angle = (getCurrentRotation(this.props())+x) * Math.PI/180;
-        
         const speed = direction === 'forward' ? this.#speed : this.#speed/2;
         const deltaX = Math.cos(angle) * speed;
         const deltaY = Math.sin(angle) * speed;
-
         this.#tankView.setLeft(this.#tankView.getLeft()+deltaX);
         this.#tankView.setTop(this.#tankView.getTop()+deltaY);        
     }
@@ -71,7 +75,6 @@ class Tank extends HTMLObject{
 const tank = new Tank();
 
 let zombieIndex = 0;
-
 class Zombie extends HTMLObject{
     #zombie;
     #health;
@@ -95,48 +98,45 @@ class Zombie extends HTMLObject{
 
         let spawn = Math.floor(Math.random()*4), spawnLeft, spawnTop;
 
-        switch(spawn){
-            case 0:
+        switch(spawn){ // random spawn
+            case 0: // from left
                 spawnLeft = 0;
                 spawnTop  = Math.random()*window.innerHeight;
                 break;
-            case 1:
+            case 1: // from top
                 spawnLeft = Math.random()*window.innerWidth;
                 spawnTop  = 0;
                 break;
-            case 2:
+            case 2: // from right
                 spawnLeft = window.innerWidth;
                 spawnTop  = Math.random()*window.innerHeight
                 break;
-            case 3:
+            case 3: // from bottom
                 spawnLeft = Math.random()*window.innerWidth
                 spawnTop  = window.innerHeight;
                 break;
         }
         
+        this.#health = health;
+        this.updateHealthBar();
+        this.#speed = speed;
         this.setLeft(spawnLeft);
         this.setTop(spawnTop);
         this.setSize(size);
-        
-        this.#health = health;
-        this.setHealthBar();
-        this.#speed = speed;
 
         this.#moveInterval = setInterval(() => {
             const angle = (getCurrentRotation(this.props())-90) * Math.PI/180;
-            
             const deltaX = Math.cos(angle) * this.#speed;
             const deltaY = Math.sin(angle) * this.#speed;
-
             this.setLeft(this.props().offsetLeft + deltaX);
-            this.setTop (this.props().offsetTop + deltaY);
-            
+            this.setTop (this.props().offsetTop  + deltaY);
+
             this.rotate(tank)
             
             const centerX = this.getLeft() + this.getWidth()/2  - window.pageXOffset;
             const centerY = this.getTop()  + this.getHeight()/2 - window.pageYOffset;
 
-            if(tank.props().isSameNode(document.elementFromPoint(centerX, centerY))){
+            if(tank.props().isSameNode(document.elementFromPoint(centerX, centerY))){ // GAME OVER
                 for(let zombie of zombieArr)
                     zombie.die();
                 clearInterval(spawnZombies);
@@ -148,31 +148,21 @@ class Zombie extends HTMLObject{
     getZombie(){return this.#zombie;}
     getHealth(){return this.#health;}
     setSize(size){this.#zombie.style.height = size + 'px';}
-    setHealthBar(){this.#healthBar.textContent = this.#health;}
+    updateHealthBar(){this.#healthBar.textContent = this.#health;}
     shot(damage) {
         this.#health -= damage; 
         if(this.#health <= 0)
             this.die();
-        this.setHealthBar();
+        this.updateHealthBar();
     }
     die() {
         zombieArr[parseInt(this.props().id)] = null; 
         this.props().remove();
-        this.getZombie().remove();
         clearInterval(this.#moveInterval);
-        
     }
 }
 
-const getCurrentRotation = (element) => {
-    const transform = getComputedStyle(element, null).getPropertyValue("transform");
-    if(transform == "none")
-        return 0;
-    const values = transform.match(/-?\d\.[\d]+/g);
-    return Math.round(Math.atan2(values[1], values[0])*(180/Math.PI));
-}
-
-const firstZombie = new Zombie();
+const firstZombie = new Zombie(); // <3
 let zombieArr = [firstZombie], spawnZombies;
 
 const init = () => {
@@ -180,6 +170,7 @@ const init = () => {
         zombieArr.push(new Zombie());
         zombieArr.push(new Zombie(50, 10, 15));
     }, 20000)
+
     document.addEventListener("mouseenter", (e) => {
         tankTarget.props().style.display = 'block';
     });
@@ -210,19 +201,19 @@ const init = () => {
         const elements = document.elementsFromPoint(e.clientX, e.clientY);
         if(elements.length < 3)
             return;
+        
         if(SHOT == false)
             return;
         SHOT = false;
         setTimeout(() => {
             SHOT = true;
         }, 1000);
-
      
         const explosion = new Audio('./resources/explosion.wav');
         explosion.volume = 0.2;
         explosion.play();
 
-        tankTarget.props().style.transform = 'scale(1.5)';
+        tankTarget.props().style.transform = 'scale(1.3)';
         setTimeout(() => {
             tankTarget.props().style.transform = 'scale(1)';
         }, 300);
@@ -238,7 +229,6 @@ const init = () => {
         if(e.key == 's')
             tank.move('backward');
     });
-    tank.getTankView().props().className = 'game-over';
 }
 window.onload = init;
 
